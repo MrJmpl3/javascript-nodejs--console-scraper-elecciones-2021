@@ -46,6 +46,14 @@ cli
         `https://api.resultadossep.eleccionesgenerales2021.pe/mesas/detalle/${mesaPad}`
       );
 
+      try {
+        await page.waitForSelector("pre");
+      } catch {
+        console.log(`Error en la mesa ${mesaPad} - No data`);
+        mesaError(mesaPad, "No data");
+        continue;
+      }
+
       let element = await page.$("pre");
       if (element === null) {
         console.log(`Error en la mesa ${mesaPad} - No data`);
